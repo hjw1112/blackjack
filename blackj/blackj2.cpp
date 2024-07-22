@@ -1,19 +1,4 @@
-﻿
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#include <iostream>
+﻿#include <iostream>
 #include <string>
 #include <array>
 #include <cstdlib>
@@ -177,3 +162,6 @@ int main() {
 
 	return 0;
 }
+
+
+//lol
