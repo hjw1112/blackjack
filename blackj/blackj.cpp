@@ -5,6 +5,7 @@
 #include <cmath>
 #include <ctime>
 #include <vector>
+#include <map>
 using namespace std;
 srand(time(NULL));
 
@@ -24,6 +25,9 @@ vector<vector<string>> cards = {
 	{"♠Q", "♥Q", "♦Q", "♣Q"},
 	{"♠K", "♥K", "♦K", "♣K"}
 };
+
+map<string, vector<int>> cardcord_;
+
 vector<int> cardcord_player;
 vector<int> cardcord_dealer;
 int player_sum;
@@ -58,7 +62,8 @@ string draw_card(string who) {
 		string card1 = cards[xcord][ycord];
 		cin.get();
 
-		//put coordinates of cards into "cardcord1" vector(array)
+		//put coordinates of cards into "cardcord_[who]" vector(array)
+		//error
 		cardcord_[who].push_back(xcord);
 		cardcord_[who].push_back(ycord);
 
@@ -75,33 +80,33 @@ int main() {
 	dealer_sum = cardsum(cardcord_dealer[0], cardcord_dealer[2]);
 
 	if (dealer_sum < 17) {
-		draw_card("dealer")
-			dealer_sum = dealer_sum + *(cardcord_dealer.end() - 2) + 1;
+		draw_card("dealer");
+		dealer_sum = dealer_sum + cardcord_dealer[cardcord_dealer.size() - 2] + 1;
 		
 	}
 	cout << dealer_sum << endl;
 
-	cin.get()
+	cin.get();
 
 		cout << "your card" << draw_card("player") << endl;
 	player_sum = cardsum(cardcord_player[0], cardcord_player[2]);
-	cout << "(total:" << player_sum ")\n";
+	cout << "(total:" << player_sum << ")\n";
 
 	char SorH;
 
-	while (sum <= 21) {
+	while (player_sum <= 21) {
 		cout << "Would you stand or hit?(S or H)";
 		cin >> SorH;
 		SorH = tolower(SorH);
 
 		if (SorH == 'h') {
 
-			cout << draw_card("player") << endl
+			cout << draw_card("player") << endl;
 
-				player_sum = player_sum + *(cardcord_player.end() - 2) + 1;
+			player_sum = player_sum + *(cardcord_player.end() - 2) + 1;
 
 			cout << "\n(total:";
-			cout << sum;
+			cout << player_sum;
 			cout << ")\n";
 		}
 
@@ -126,7 +131,7 @@ int main() {
 
 	}
 
-	if (sum > 21) {
+	if (player_sum > 21) {
 		cout << "bust(over 21)\n";
 	}
 
